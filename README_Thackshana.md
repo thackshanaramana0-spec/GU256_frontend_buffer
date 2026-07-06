@@ -36,14 +36,13 @@ A **marketing landing page** for GU256, a proposed unified genomic data standard
 - **10 content sections:**
   1. Hero (scroll animation)
   2. The Problem (data growth chart + metric cards)
-  3. Architecture (interactive 3D layered diagram in CSS 3D perspective)
-  4. Compression Benchmarks (interactive bar chart, 3 switchable datasets)
-  5. Zero-Decompression Search (fake terminal that types out a query result)
-  6. Genomic AI (canvas particle animation)
-  7. Self-Healing (clickable bit-rot simulator with 64 blocks)
-  8. Ecosystem Map (animated SVG node graph)
-  9. ARCS Engine (canvas MST graph)
-  10. Vision + CTA + Footer
+  3. Compression Benchmarks (interactive bar chart, 3 switchable datasets)
+  4. Zero-Decompression Search (fake terminal that types out a query result)
+  5. Genomic AI (canvas particle animation)
+  6. Self-Healing (clickable bit-rot simulator with 64 blocks)
+  7. Ecosystem Map (animated SVG node graph)
+  8. ARCS Engine (canvas MST graph)
+  9. Vision + CTA + Footer
 
 ---
 
