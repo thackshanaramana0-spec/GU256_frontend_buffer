@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GU256 is a unified standard for genomic data. Compression, search, AI-ready tensors, and archival integrity — unified into a single genomic object.">
+  <title>GU256 — A Unified Standard for Genomics</title>
+  <!-- Google Fonts: Inter and Geist Mono/Sans styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-bg-glow"></div>
+    <canvas id="loading-particles" class="loading-particles"></canvas>
+    
+    <div class="loading-content">
+      <div class="loading-logo-container">
+        <svg class="loading-logo" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" stroke="rgba(59, 130, 246, 0.15)" stroke-width="2" fill="none" />
+          <circle cx="50" cy="50" r="30" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1" stroke-dasharray="5 5" fill="none" />
+          <path d="M50 10 A40 40 0 0 1 90 50 A40 40 0 0 1 50 90 A40 40 0 0 1 10 50 Z" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" fill="none" class="logo-spinner" />
+          <text x="50" y="55" font-family="'Outfit', sans-serif" font-size="14" font-weight="800" fill="#F8FAFC" text-anchor="middle">GU</text>
+        </svg>
+      </div>
+      
+      <h2 class="loading-title">GU256</h2>
+      <p id="loading-text" class="loading-status">Initializing Genomic Infrastructure...</p>
+      
+      <div class="loading-bar-wrapper">
+        <div id="loading-bar-progress" class="loading-bar-progress"></div>
+      </div>
+      
+      <div class="loading-details">
+        <span id="loading-percentage">0%</span>
+        <span id="loading-frame-count">0 / 0 Frames Loaded</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background WebP Canvas (Fixed under Hero) -->
+  <div id="hero-canvas-container" class="hero-canvas-container">
+    <canvas id="hero-canvas"></canvas>
+    <div class="canvas-overlay-gradient"></div>
+    <div class="canvas-vignette"></div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header id="site-header" class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-text">GU256</span>
+      </a>
+      
+      <nav class="main-nav">
+        <a href="#problem-section">Platform</a>
+        <a href="#architecture-section">Architecture</a>
+        <a href="#benchmarks-section">Benchmarks</a>
+        <a href="#ai-section">AI</a>
+        <a href="#healing-section">Integrity</a>
+        <a href="#arcs-section">ARCS</a>
+        <a href="#impact-section">Impact</a>
+      </nav>
+
+      <div class="header-ctas">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="nav-btn btn-secondary">
+          <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="#cta-section" class="nav-btn btn-primary">Join Standard</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Rail (Right Side Progress Tracker) -->
+  <div class="nav-rail">
+    <div class="rail-line">
+      <div id="rail-progress-bar" class="rail-progress-bar"></div>
+    </div>
+    <div class="rail-dots">
+      <a href="#hero-section" class="rail-dot active" data-index="01"><span class="rail-label">Hero</span></a>
+      <a href="#problem-section" class="rail-dot" data-index="02"><span class="rail-label">The Problem</span></a>
+      <a href="#architecture-section" class="rail-dot" data-index="03"><span class="rail-label">Introducing GU256</span></a>
+      <a href="#benchmarks-section" class="rail-dot" data-index="04"><span class="rail-label">Compression Wins</span></a>
+      <a href="#search-section" class="rail-dot" data-index="05"><span class="rail-label">Zero-Decompression Search</span></a>
+      <a href="#ai-section" class="rail-dot" data-index="06"><span class="rail-label">Genomic AI</span></a>
+      <a href="#healing-section" class="rail-dot" data-index="07"><span class="rail-label">Self-Healing</span></a>
+      <a href="#infrastructure-section" class="rail-dot" data-index="08"><span class="rail-label">Ecosystem</span></a>
+      <a href="#arcs-section" class="rail-dot" data-index="09"><span class="rail-label">ARCS Engine</span></a>
+      <a href="#impact-section" class="rail-dot" data-index="10"><span class="rail-label">Impact Cases</span></a>
+    </div>
+  </div>
+
+  <!-- Scroll Container -->
+  <main id="main-scroll-container">
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="hero-section">
+      <div class="hero-content-wrapper">
+        <div class="hero-left">
+          <div class="badge-new-standard">
+            <span class="badge-dot"></span>
+            Genomic Unified Standard v1.0
+          </div>
+          <h1 class="hero-title">GU256</h1>
+          <h2 class="hero-subtitle">A Unified Standard for Genomics</h2>
+          <p class="hero-description">
+            Compression, search, AI-ready tensors, and archival integrity — unified into a single genomic object.
+          </p>
+          
+          <div class="hero-actions">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+              </svg>
+              Open Source
+            </a>
+            <a href="#arcs-section" class="btn btn-secondary">Read Research</a>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat-card">
+              <span class="stat-value animate-stat" data-target="15">15/15</span>
+              <span class="stat-label">Benchmark Wins</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-value animate-stat" data-target="1238">1,238×</span>
+              <span class="stat-label">Max Compression</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-value text-normal">2–4 ms</span>
+              <span class="stat-label">Query Search</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-value animate-stat" data-target="13">10–13×</span>
+              <span class="stat-label">Faster AI Ingest</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-center">
+          <!-- Visually open to showcase the scroll sequence -->
+        </div>
+
+        <div class="hero-right-overlay">
+          <!-- Small scroll hints -->
+        </div>
+      </div>
+
+      <div class="hero-bottom-indicator">
+        <div class="mouse-icon">
+          <div class="wheel"></div>
+        </div>
+        <span class="scroll-hint">SCROLL TO SEQUENCE TRANSFORMATION</span>
+      </div>
+    </section>
+
+    <!-- Trust Strip -->
+    <div id="trust-strip" class="trust-strip">
+      <div class="trust-container">
+        <div class="trust-categories">
+          <div class="trust-category">
+            <span class="category-name">Deployment Targets</span>
+            <div class="logos-track">
+              <span class="logo-item">RESEARCH LABS</span>
+              <span class="logo-item">HOSPITALS</span>
+              <span class="logo-item">BIOBANKS</span>
+              <span class="logo-item">AI RESEARCH</span>
+              <span class="logo-item">SEQUENCING CENTERS</span>
+            </div>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-category">
+            <span class="category-name">Platform Guarantees</span>
+            <div class="logos-track">
+              <span class="badge-item"><span class="badge-check"></span> PEER-REVIEWED RESEARCH</span>
+              <span class="badge-item"><span class="badge-check"></span> OPEN SOURCE</span>
+              <span class="badge-item"><span class="badge-check"></span> REPRODUCIBLE BENCHMARKS</span>
+              <span class="badge-item"><span class="badge-check"></span> MIT LICENSED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: The Problem -->
+    <section id="problem-section" class="content-section problem-section">
+      <div class="container">
+        <div class="section-header-centered reveal-on-scroll">
+          <span class="section-tag">The Bottleneck</span>
+          <h2 class="section-title-large">Genomics Is Producing Data Faster Than We Can Understand It</h2>
+          <p class="section-subtitle">
+            Current genomic workflows are restricted by legacy formats designed purely for text storage, creating scaling blockages.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-visual-card reveal-on-scroll">
+            <div class="grid-card-bg"></div>
+            <h3 class="card-title">Data Storage Trajectory</h3>
+            <div class="chart-container">
+              <!-- Visual Storage Growth Chart -->
+              <svg class="growth-chart-svg" viewBox="0 0 400 200">
+                <defs>
+                  <linearGradient id="chart-glow" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"></stop>
+                    <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"></stop>
+                  </linearGradient>
+                </defs>
+                <path d="M 50,170 Q 150,165 230,120 T 350,30 L 350,180 L 50,180 Z" fill="url(#chart-glow)" />
+                <path d="M 50,170 Q 150,165 230,120 T 350,30" fill="none" stroke="#3B82F6" stroke-width="3" stroke-linecap="round" class="draw-path" />
+                <circle cx="350" cy="30" r="5" fill="#3B82F6" class="pulse-dot" />
+                <line x1="50" y1="180" x2="350" y2="180" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1" />
+                <text x="50" y="195" fill="rgba(255, 255, 255, 0.4)" font-size="10">2020</text>
+                <text x="200" y="195" fill="rgba(255, 255, 255, 0.4)" font-size="10">2023</text>
+                <text x="330" y="195" fill="rgba(255, 255, 255, 0.4)" font-size="10">2026 (PB)</text>
+              </svg>
+            </div>
+            <div class="visual-badge">PETABYTE SCALE</div>
+          </div>
+
+          <div class="problem-metrics reveal-on-scroll">
+            <div class="metric-box">
+              <span class="metric-num animate-stat" data-target="100">100 GB</span>
+              <span class="metric-txt">Per raw genome sequence</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-num">$ Millions</span>
+              <span class="metric-txt">Spent globally on redundant archive storage</span>
+            </div>
+            <div class="metric-box flex-row">
+              <div>
+                <h4 class="metric-sub-title">Fragmented Pipelines</h4>
+                <p class="metric-desc">Moving files between separate compression, index, and query tools.</p>
+              </div>
+            </div>
+            <div class="metric-box flex-row">
+              <div>
+                <h4 class="metric-sub-title">Broken Workflows</h4>
+                <p class="metric-desc">Waiting hours for decompression before basic variant discovery.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-3-column">
+          <div class="glass-card reveal-on-scroll">
+            <div class="card-glow"></div>
+            <div class="card-icon-wrapper">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3B82F6" stroke-width="2">
+                <rect x="2" y="5" width="20" height="14" rx="2" ry="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
+              </svg>
+            </div>
+            <h3>Storage Cost</h3>
+            <p>Hospitals and laboratories spend up to 40% of their operational budget storing cold archives that are rarely touched due to retrieval complexity.</p>
+          </div>
+
+          <div class="glass-card reveal-on-scroll">
+            <div class="card-glow"></div>
+            <div class="card-icon-wrapper">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3B82F6" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+              </svg>
+            </div>
+            <h3>Dead Data</h3>
+            <p>Once compressed, genomic data is locked in archival vaults. Interrogating old datasets requires full pipeline decompression, making biobanks static databases.</p>
+          </div>
+
+          <div class="glass-card reveal-on-scroll">
+            <div class="card-glow"></div>
+            <div class="card-icon-wrapper">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3B82F6" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+            </div>
+            <h3>Pipeline Complexity</h3>
+            <p>Data translation pipelines represent a fragile stack of open-source scripts, converting FASTQ to BAM, BAM to CRAM, and CRAM back to custom models.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Introducing GU256 -->
+    <section id="architecture-section" class="content-section architecture-section">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Architecture</span>
+          <h2 class="section-title">One File. Every Capability.</h2>
+          <p class="section-subtitle">
+            A genomic archive that is compressed, searchable, AI-ready, and self-verifying.
+          </p>
+        </div>
+
+        <div class="architecture-visual-grid">
+          <!-- Sticky interactive layered illustration on the left/center -->
+          <div class="architecture-left reveal-on-scroll">
+            <div class="layered-core-wrapper">
+              <div id="layered-container" class="layered-container">
+                <!-- Layer 6: Governance -->
+                <div class="core-layer layer-6" data-layer="6">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">6. Governance & Error Correction</span>
+                </div>
+                <!-- Layer 5: AI Layer -->
+                <div class="core-layer layer-5" data-layer="5">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">5. AI Ingestion Layer</span>
+                </div>
+                <!-- Layer 4: Search -->
+                <div class="core-layer layer-4" data-layer="4">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">4. GU-TENSOR Search Index</span>
+                </div>
+                <!-- Layer 3: Variants -->
+                <div class="core-layer layer-3" data-layer="3">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">3. Embedded Variant Mapping</span>
+                </div>
+                <!-- Layer 2: Quality Encoding -->
+                <div class="core-layer layer-2" data-layer="2">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">2. Quality Scores (Lossless/AQ2)</span>
+                </div>
+                <!-- Layer 1: Tokenization -->
+                <div class="core-layer layer-1" data-layer="1">
+                  <div class="layer-mesh"></div>
+                  <span class="layer-name">1. Codon-Aware Tokenization</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description checklist on the right -->
+          <div class="architecture-right reveal-on-scroll">
+            <div class="arch-layer-card active" data-target-layer="1">
+              <div class="card-num">01</div>
+              <div class="card-content">
+                <h3>Tokenization</h3>
+                <p>Codon-aware 256-token codebook. Converts biological sequences directly into structural index values, respecting reading frames and codon boundaries.</p>
+              </div>
+            </div>
+            <div class="arch-layer-card" data-target-layer="2">
+              <div class="card-num">02</div>
+              <div class="card-content">
+                <h3>Quality Encoding</h3>
+                <p>Lossless compression or advanced AQ2 binning. Allows clinical-grade exact reconstruction of sequencers' raw output while cutting file footprint by orders of magnitude.</p>
+              </div>
+            </div>
+            <div class="arch-layer-card" data-target-layer="3">
+              <div class="card-num">03</div>
+              <div class="card-content">
+                <h3>Variants</h3>
+                <p>Embedded variant representation. Integrates variant records and assembly coordinates directly inside the raw read block, merging FASTQ and VCF metadata.</p>
+              </div>
+            </div>
+            <div class="arch-layer-card" data-target-layer="4">
+              <div class="card-num">04</div>
+              <div class="card-content">
+                <h3>Search</h3>
+                <p>GU-TENSOR k-mer index. Built directly into the compressed representation. Search queries locate raw read sub-graphs without extracting the genome.</p>
+              </div>
+            </div>
+            <div class="arch-layer-card" data-target-layer="5">
+              <div class="card-num">05</div>
+              <div class="card-content">
+                <h3>AI Layer</h3>
+                <p>Direct tensor access. Decouples biological data from text representations. Feeds compressed integers straight to neural networks without ASCII parsing.</p>
+              </div>
+            </div>
+            <div class="arch-layer-card" data-target-layer="6">
+              <div class="card-num">06</div>
+              <div class="card-content">
+                <h3>Governance</h3>
+                <p>Error correction and integrity layers. Features Reed-Solomon codes and SHA-256 Merkle trees to detect bit-rot and restore data integrity instantly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Compression Performance -->
+    <section id="benchmarks-section" class="content-section benchmarks-section">
+      <div class="container">
+        <div class="section-header-centered reveal-on-scroll">
+          <span class="section-tag">Performance</span>
+          <h2 class="section-title-large">Smaller Than the State of the Art</h2>
+          <p class="section-subtitle">
+            Across 15 reference datasets, GU256 consistently outperforms academic compressors and industrial standards.
+          </p>
+        </div>
+
+        <div class="benchmark-interactive reveal-on-scroll">
+          <div class="chart-controls">
+            <button class="chart-tab active" data-dataset="human">Human Genome (HG38)</button>
+            <button class="chart-tab" data-dataset="sars">SARS-CoV-2 (Amplicon)</button>
+            <button class="chart-tab" data-dataset="metagenome">Metagenomic Gut Microbiome</button>
+          </div>
+
+          <div class="chart-display-card">
+            <div class="chart-header-stats">
+              <div class="chart-header-stat">
+                <span class="h-stat-label">Dataset Size</span>
+                <span id="dataset-size" class="h-stat-val">3.2 GB</span>
+              </div>
+              <div class="chart-header-stat">
+                <span class="h-stat-label">GU256 Size</span>
+                <span id="compressed-size" class="h-stat-val">2.58 MB</span>
+              </div>
+              <div class="chart-header-stat">
+                <span class="h-stat-label">Ratio Improvement</span>
+                <span id="ratio-improvement" class="h-stat-val">1238× max</span>
+              </div>
+            </div>
+            
+            <div class="bars-container">
+              <!-- Interactive chart bars -->
+              <div class="bar-row highlight-row">
+                <span class="bar-label">GU256 (Ours)</span>
+                <div class="bar-wrapper">
+                  <div id="bar-gu" class="bar-fill" style="width: 8%"></div>
+                </div>
+                <span id="val-gu" class="bar-value">0.25 GB</span>
+              </div>
+              
+              <div class="bar-row">
+                <span class="bar-label">SPRING</span>
+                <div class="bar-wrapper">
+                  <div id="bar-spring" class="bar-fill" style="width: 25%"></div>
+                </div>
+                <span id="val-spring" class="bar-value">0.78 GB</span>
+              </div>
+
+              <div class="bar-row">
+                <span class="bar-label">Genozip</span>
+                <div class="bar-wrapper">
+                  <div id="bar-genozip" class="bar-fill" style="width: 45%"></div>
+                </div>
+                <span id="val-genozip" class="bar-value">1.44 GB</span>
+              </div>
+
+              <div class="bar-row">
+                <span class="bar-label">FQSqueezer</span>
+                <div class="bar-wrapper">
+                  <div id="bar-fq" class="bar-fill" style="width: 60%"></div>
+                </div>
+                <span id="val-fq" class="bar-value">1.92 GB</span>
+              </div>
+
+              <div class="bar-row">
+                <span class="bar-label">DSRC2</span>
+                <div class="bar-wrapper">
+                  <div id="bar-dsrc" class="bar-fill" style="width: 90%"></div>
+                </div>
+                <span id="val-dsrc" class="bar-value">2.88 GB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-performance-card reveal-on-scroll">
+          <div class="h-card-left">
+            <span class="highlight-tag">WORLD RECORD</span>
+            <h3>1238× Compression</h3>
+            <p>Achieved on deep-read SARS-CoV-2 amplicon sequencing datasets. By recognizing recursive read structures and LSH graph clusters, GU256 condenses viral data down into objects that fit within embedded buffers.</p>
+          </div>
+          <div class="h-card-right">
+            <div class="compress-visual">
+              <div class="source-data-block">
+                <span class="data-pulse-text">RAW SEQUENCES (100%)</span>
+                <div class="grid-particles">
+                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="shrink-arrow">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3B82F6" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <polyline points="19 12 12 19 5 12" />
+                </svg>
+              </div>
+              <div class="gu-data-block">
+                <span class="gu-block-label">GU256 CORE (0.08%)</span>
+                <div class="single-glow-particle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Search Without Decompression -->
+    <section id="search-section" class="content-section search-section">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Search API</span>
+          <h2 class="section-title">Find Answers Without Opening The Archive</h2>
+          <p class="section-subtitle">
+            Query deep archives without extracting massive datasets. Search is performed directly on the compressed codebook.
+          </p>
+        </div>
+
+        <div class="search-module reveal-on-scroll">
+          <div class="search-left">
+            <h3 class="search-inner-title">Simulate Genomic Query</h3>
+            <p class="search-inner-desc">Input a genomic pattern below to run a direct k-mer search against the compressed, encrypted GU256 object structure.</p>
+            
+            <div class="search-input-box">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">query_engine.sh</span>
+              </div>
+              <div class="search-bar-wrapper">
+                <span class="prompt">$ gu256 search -k 31 -q</span>
+                <select id="sample-queries" class="query-select">
+                  <option value="ATGCTAGCTAGCTAGCTAGCTAGCTAGCTA">ATGCTAGCTAGCTAGCTAGCTAGCTAGCTA (Pathogen Marker)</option>
+                  <option value="CGTACGTACGTACGTACGTACGTACGTACG">CGTACGTACGTACGTACGTACGTACGTACG (Variant Candidate)</option>
+                  <option value="AAAAAGGGGGTTTTTCCCCCAAAAAGGGGG">AAAAAGGGGGTTTTTCCCCCAAAAAGGGGG (Repetitive Telomere)</option>
+                </select>
+                <button id="run-query-btn" class="query-btn">EXECUTE</button>
+              </div>
+              <div class="search-terminal-output" id="terminal-output">
+                Waiting for search query execution...
+              </div>
+            </div>
+          </div>
+
+          <div class="search-right">
+            <div class="query-metrics">
+              <div class="q-metric-card">
+                <span class="q-val">2–4 ms</span>
+                <span class="q-label">Query Latency</span>
+              </div>
+              <div class="q-metric-card">
+                <span class="q-val">100%</span>
+                <span class="q-label">True Positive Rate</span>
+              </div>
+              <div class="q-metric-card">
+                <span class="q-val">&lt;0.002%</span>
+                <span class="q-label">False Positive Rate</span>
+              </div>
+            </div>
+
+            <div class="archive-visual-state">
+              <div id="archive-shield" class="archive-shield">
+                <div class="shield-indicator">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3B82F6" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  <span>ARCHIVE SECURED & CLOSED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-4-column">
+          <div class="glass-card reveal-on-scroll">
+            <h4>Variant Discovery</h4>
+            <p>Locate variant markers directly within clinical genome reads without unpacking FASTQ files.</p>
+          </div>
+          <div class="glass-card reveal-on-scroll">
+            <h4>Pathogen Detection</h4>
+            <p>Scan incoming samples for viral markers in milliseconds, using indexed sequence patterns.</p>
+          </div>
+          <div class="glass-card reveal-on-scroll">
+            <h4>Biobank Search</h4>
+            <p>Execute queries across cohorts of millions of genomes without computing resources.</p>
+          </div>
+          <div class="glass-card reveal-on-scroll">
+            <h4>Federated Querying</h4>
+            <p>Allow researchers to run remote lookups without transmitting raw sensitive donor DNA.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Built For Genomic AI -->
+    <section id="ai-section" class="content-section ai-section">
+      <div class="container">
+        <div class="section-header-centered reveal-on-scroll">
+          <span class="section-tag">Machine Learning</span>
+          <h2 class="section-title-large">The Native Format For Genomic AI</h2>
+          <p class="section-subtitle">
+            Skip parsing. Skip decompression. Stream raw genomic token tensors directly into Deep Learning models.
+          </p>
+        </div>
+
+        <div class="ai-visualization reveal-on-scroll">
+          <div class="ai-flow-container">
+            <!-- Flow Animation Container -->
+            <div class="flow-step" id="flow-genome">
+              <div class="flow-circle">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#3B82F6" stroke-width="2">
+                  <path d="M4.5 10.5C4.5 5.25 9.75 3 12 3s7.5 2.25 7.5 7.5c0 4.5-4.5 9-7.5 10.5-3-1.5-7.5-6-7.5-10.5Z" />
+                  <path d="M12 3v18" />
+                  <path d="M7.5 8h9" />
+                  <path d="M6 13h12" />
+                  <path d="M9 17h6" />
+                </svg>
+              </div>
+              <span class="step-label">GU256 Genome Object</span>
+            </div>
+
+            <div class="flow-connector">
+              <div class="flow-line-pulse"></div>
+            </div>
+
+            <div class="flow-step" id="flow-tensor">
+              <div class="flow-circle">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#3B82F6" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+              </div>
+              <span class="step-label">GU-TENSOR Stream</span>
+            </div>
+
+            <div class="flow-connector">
+              <div class="flow-line-pulse"></div>
+            </div>
+
+            <div class="flow-step" id="flow-model">
+              <div class="flow-circle">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#3B82F6" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polygon points="12 12 2 17 12 22 22 17 12 12" />
+                </svg>
+              </div>
+              <span class="step-label">Transformer Model</span>
+            </div>
+          </div>
+
+          <div class="ai-particles-canvas-wrapper">
+            <canvas id="tensor-particles-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="ai-features-grid reveal-on-scroll">
+          <div class="ai-feature-card">
+            <h3>Direct Training Input</h3>
+            <p>Tensors feed straight into GPUs. Zero ASCII parsing from text FASTQ files allows training loops to bypass file preprocessing overhead.</p>
+          </div>
+          <div class="ai-feature-card">
+            <h3>10–13× Faster Ingest</h3>
+            <p>Ingestion systems move data at NVMe drive speeds. The bottlenecks of standard multi-threaded CPU string parsing are eliminated.</p>
+          </div>
+          <div class="ai-feature-card">
+            <h3>PyTorch / JAX Ready</h3>
+            <p>A native C++ bindings layer provides instant wrappers to output 1D or 2D integer tensor matrices directly into PyTorch pipelines.</p>
+          </div>
+          <div class="ai-feature-card">
+            <h3>Foundation Model Native</h3>
+            <p>Designed for Genomic Foundation Models. Codebook tokens are structured directly to match standard biological transformer vocabularies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Self-Healing Genomic Archives -->
+    <section id="healing-section" class="content-section healing-section">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Reliability</span>
+          <h2 class="section-title">Integrity Built Into Every Genome</h2>
+          <p class="section-subtitle">
+            The first clinical-grade genomic format containing active error correction. Detects bit-rot and repairs data on the fly.
+          </p>
+        </div>
+
+        <div class="healing-demo reveal-on-scroll">
+          <div class="healing-left">
+            <h3 class="healing-inner-title">Self-Healing Simulator</h3>
+            <p class="healing-inner-desc">Click "SIMULATE BIT-ROT" to introduce randomized data corruption, then trigger Reed-Solomon restoration.</p>
+            
+            <div class="healing-simulator-box">
+              <div class="blocks-grid" id="blocks-grid-container">
+                <!-- Javascript will generate 64 blocks representing blocks of genomic data -->
+              </div>
+              
+              <div class="healing-controls">
+                <button id="corrupt-btn" class="btn btn-secondary">Simulate Bit-Rot</button>
+                <button id="repair-btn" class="btn btn-primary" disabled>Run Reed-Solomon Repair</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="healing-right">
+            <div class="shields-list">
+              <div class="shield-item">
+                <span class="shield-dot blue"></span>
+                <div>
+                  <h4>Reed-Solomon RS(255,223)</h4>
+                  <p>Standard algebraic error correction codes allow recovering up to 16 symbols of corrupted headers.</p>
+                </div>
+              </div>
+              
+              <div class="shield-item">
+                <span class="shield-dot blue"></span>
+                <div>
+                  <h4>SHA-256 Merkle Verification</h4>
+                  <p>Verifies sub-block trees recursively. Instantly pinpoints modified bytes without full-file digests.</p>
+                </div>
+              </div>
+
+              <div class="shield-item">
+                <span class="shield-dot blue"></span>
+                <div>
+                  <h4>Bit-Rot Protection</h4>
+                  <p>Automated daemon processes inspect archives in the background, recovering damaged sectors from integrity records.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="clinical-box">
+              <span class="clinical-icon">!</span>
+              <p><strong>Clinical Archiving:</strong> Meets strict FDA Title 21 CFR Part 11 requirements for medical records integrity and data durability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: The Infrastructure Layer -->
+    <section id="infrastructure-section" class="content-section infrastructure-section">
+      <div class="container">
+        <div class="section-header-centered reveal-on-scroll">
+          <span class="section-tag">Ecosystem Map</span>
+          <h2 class="section-title-large">Connecting The Future Of Biology</h2>
+          <p class="section-subtitle">
+            GU256 serves as the core pipeline format connecting sequencing centers, clinics, databases, and AI pipelines.
+          </p>
+        </div>
+
+        <div class="infrastructure-map-wrapper reveal-on-scroll">
+          <!-- Animated Node Diagram -->
+          <svg id="ecosystem-map" class="ecosystem-map-svg" viewBox="0 0 800 400">
+            <defs>
+              <linearGradient id="network-line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.8"></stop>
+                <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.1"></stop>
+              </linearGradient>
+            </defs>
+
+            <!-- Lines -->
+            <g id="map-lines"></g>
+
+            <!-- Nodes -->
+            <!-- Center Node -->
+            <g class="network-node center-node" transform="translate(400, 200)" id="node-core">
+              <circle r="40" fill="rgba(59, 130, 246, 0.15)" stroke="#3B82F6" stroke-width="2" class="core-pulse-circle"></circle>
+              <circle r="30" fill="rgba(59, 130, 246, 0.2)" stroke="#3B82F6" stroke-width="1" stroke-dasharray="4 2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Outfit', sans-serif" font-weight="700" fill="#F8FAFC" font-size="12">GU256 CORE</text>
+            </g>
+
+            <!-- Outer Nodes -->
+            <g class="network-node outer-node" transform="translate(150, 100)" id="node-sequencers">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#F8FAFC">Sequencers</text>
+            </g>
+
+            <g class="network-node outer-node" transform="translate(650, 100)" id="node-models">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#F8FAFC">AI Models</text>
+            </g>
+
+            <g class="network-node outer-node" transform="translate(650, 300)" id="node-labs">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#F8FAFC">Research Labs</text>
+            </g>
+
+            <g class="network-node outer-node" transform="translate(150, 300)" id="node-hospitals">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#F8FAFC">Hospitals</text>
+            </g>
+
+            <g class="network-node outer-node" transform="translate(400, 60)" id="node-biobanks">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="9" fill="#F8FAFC">Biobanks</text>
+            </g>
+
+            <g class="network-node outer-node" transform="translate(400, 340)" id="node-government">
+              <circle r="25" fill="#0A1424" stroke="rgba(255, 255, 255, 0.1)" stroke-width="2"></circle>
+              <text y="5" text-anchor="middle" font-family="'Inter', sans-serif" font-size="8" fill="#F8FAFC">Gov Programs</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Powered By ARCS -->
+    <section id="arcs-section" class="content-section arcs-section">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Compression Engine</span>
+          <h2 class="section-title">Powered By ARCS</h2>
+          <p class="section-subtitle">
+            The next-generation graphic compression engine under the hood of the GU256 standard.
+          </p>
+        </div>
+
+        <div class="arcs-layout-grid">
+          <div class="arcs-left reveal-on-scroll">
+            <h3 class="arcs-inner-title">LSH-Based Read Relationship Graph</h3>
+            <p class="arcs-inner-desc">ARCS processes raw reads using Locality Sensitive Hashing (LSH) to identify near-identical biological overlaps. It compiles sequences into a Minimum Spanning Tree (MST), storing only differential paths.</p>
+            
+            <div class="arcs-graph-simulation">
+              <canvas id="arcs-graph-canvas"></canvas>
+            </div>
+          </div>
+
+          <div class="arcs-right reveal-on-scroll">
+            <div class="arcs-bullets">
+              <div class="bullet-box">
+                <h4>MST Encoding</h4>
+                <p>Builds spanning paths across overlapping DNA reads. This eliminates the need to record duplicate bases, achieving theoretical compression bounds.</p>
+              </div>
+              <div class="bullet-box">
+                <h4>Near-Linear Scalability</h4>
+                <p>O(N) processing speed through localized buckets. Scales smoothly from small amplicons to massive metagenomic soil studies.</p>
+              </div>
+              <div class="bullet-box">
+                <h4>Up to 3.7× Faster Than SPRING</h4>
+                <p>Multi-threaded processing paths bypass bottlenecks, generating output files in a fraction of academic software runtimes.</p>
+              </div>
+            </div>
+
+            <div class="paper-cta-card">
+              <h3>Read the ARCS C++ Implementation Draft</h3>
+              <p>Explore the full academic specifications and algorithms defining the graphic compression engine.</p>
+              <a href="#" class="btn btn-primary">Read Research Paper</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9: Real World Impact -->
+    <section id="impact-section" class="content-section impact-section">
+      <div class="container">
+        <div class="section-header-centered reveal-on-scroll">
+          <span class="section-tag">Real World Impact</span>
+          <h2 class="section-title-large">What Changes When Genomic Data Becomes Intelligent?</h2>
+          <p class="section-subtitle">
+            Moving from offline text file catalogs to structured, queryable genomic infrastructure databases.
+          </p>
+        </div>
+
+        <div class="impact-slider reveal-on-scroll">
+          <!-- Slide cards -->
+          <div class="impact-cards-wrapper">
+            <div class="impact-card">
+              <div class="impact-card-hdr">
+                <span class="impact-tag">CLINICAL GENOMICS</span>
+                <h3>Targeted Oncology</h3>
+              </div>
+              <div class="impact-body">
+                <p><strong>Problem:</strong> Patient tumor mapping takes days to retrieve, extract, and align, delaying precision chemotherapy decisions.</p>
+                <p><strong>Current Cost:</strong> $1,400+ alignment computation overhead per pipeline run.</p>
+                <p><strong>GU256 Advantage:</strong> Real-time lookup of target mutations in less than 5ms directly inside the patient record archive.</p>
+                <p><strong>Future Potential:</strong> Point-of-care variant profiling matching therapies within minutes of biopsy collection.</p>
+              </div>
+            </div>
+
+            <div class="impact-card">
+              <div class="impact-card-hdr">
+                <span class="impact-tag">DRUG DISCOVERY</span>
+                <h3>High-Throughput Assays</h3>
+              </div>
+              <div class="impact-body">
+                <p><strong>Problem:</strong> AI model training requires moving petabytes of sequences from S3 buckets, stalling pipeline operations.</p>
+                <p><strong>Current Cost:</strong> Substantial monthly cloud data egress charges.</p>
+                <p><strong>GU256 Advantage:</strong> Ingestion pipelines stream tensor matrices directly to AI models with zero preprocessing.</p>
+                <p><strong>Future Potential:</strong> Continuous model fine-tuning with zero staging server disk operations.</p>
+              </div>
+            </div>
+
+            <div class="impact-card">
+              <div class="impact-card-hdr">
+                <span class="impact-tag">PANDEMIC SURVEILLANCE</span>
+                <h3>Global Variant Tracking</h3>
+              </div>
+              <div class="impact-body">
+                <p><strong>Problem:</strong> Identifying novel strains requires sharing raw, bulky sequence files across national borders.</p>
+                <p><strong>Current Cost:</strong> Massive data transit lag and security compliance compliance checks.</p>
+                <p><strong>GU256 Advantage:</strong> Distributed federated queries verify presence of mutation markers without transferring files.</p>
+                <p><strong>Future Potential:</strong> Early-warning systems catching viral mutations at global airports in real-time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 10: Vision -->
+    <section id="vision-section" class="content-section vision-section">
+      <div class="vision-bg-grid"></div>
+      <div class="container">
+        <div class="vision-content reveal-on-scroll">
+          <span class="section-tag">The Standard</span>
+          <h2 class="vision-title">The Future Of Biology Needs A Universal Language</h2>
+          
+          <div class="vision-statements">
+            <div class="vision-stmt">One format for genomic storage.</div>
+            <div class="vision-stmt">One format for genomic search.</div>
+            <div class="vision-stmt">One format for genomic AI.</div>
+            <div class="vision-stmt">One format for genomic archives.</div>
+          </div>
+
+          <p class="vision-closing">
+            GU256 is building the foundation layer for genomic intelligence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="cta-section" class="cta-section">
+      <div class="cta-glow"></div>
+      <div class="container reveal-on-scroll">
+        <h2>Join The Next Generation Of Genomic Infrastructure</h2>
+        <p>A unified standard created by developers and researchers, for the future of biology.</p>
+        
+        <div class="cta-buttons">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            View GitHub
+          </a>
+          <a href="#" class="btn btn-secondary">Read Documentation</a>
+          <a href="mailto:research@gu256.org" class="btn btn-tertiary">Contact Research Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <span class="footer-logo">GU256</span>
+            <p class="footer-tagline">GU256 — A Unified Standard for Genomics.</p>
+            <p class="footer-subtagline">Open Source. Research Driven. Built For The Future Of Biology.</p>
+          </div>
+          
+          <div class="footer-links-col">
+            <h4>Product</h4>
+            <a href="#hero-section">GU256 Standard</a>
+            <a href="#arcs-section">ARCS Engine</a>
+            <a href="#benchmarks-section">Benchmarks</a>
+          </div>
+
+          <div class="footer-links-col">
+            <h4>Research</h4>
+            <a href="#arcs-section">Research Papers</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub Organization</a>
+            <a href="#site-header">API Reference</a>
+            <a href="#site-header">CLI Interface</a>
+          </div>
+
+          <div class="footer-links-col">
+            <h4>Resources</h4>
+            <a href="#site-header">Documentation</a>
+            <a href="#site-header">Developer Tutorials</a>
+            <a href="#site-header">Blog</a>
+          </div>
+
+          <div class="footer-links-col">
+            <h4>Institutional Team</h4>
+            <span class="team-inst">SRM Institute of Science and Technology</span>
+            <span class="team-loc">Chennai, India</span>
+            <a href="#cta-section" class="team-contact">Research Team Contact</a>
+            <div class="footer-social-links">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="mailto:research@gu256.org">Email</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="copyright">&copy; 2026 Genomic Unified 256 Project. All rights reserved. MIT Licensed.</p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Core JavaScript -->
+  <script src="index.js"></script>
+</body>
+</html>

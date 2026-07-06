@@ -1,0 +1,19 @@
+{
+  "name": "frontend_gu256",
+  "version": "1.0.0",
+  "description": "Premium Genomic Unified 256 Platform Website",
+  "main": "server.js",
+  "scripts": {
+    "manifest": "node generate-manifest.js",
+    "dev": "node generate-manifest.js && node server.js"
+  },
+  "keywords": [
+    "genomics",
+    "gu256",
+    "arcs",
+    "standard",
+    "visualization"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
